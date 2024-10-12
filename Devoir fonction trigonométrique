@@ -1,0 +1,54 @@
+#include <iostream>
+
+float puissance(float xp, unsigned int n) {
+    if (xp == 0 && n == 0) return 0;
+    if (n == 0) return 1;
+    float result = 1;
+    for (unsigned int i = 0; i < n; i++) {
+        result *= xp;
+    }
+    return result;
+}
+
+int facto(int m) {
+    int result = 1;
+    for (int i = 1; i <= m; i++) {
+        result *= i;
+    }
+    return result;
+}
+
+float cosinus(float x) {
+    float result = 0;
+    for (int i = 0; i <= 5; i++) {
+        result += (puissance(-1, i) * puissance(x, 2 * i)) / facto(2 * i);
+    }
+    return result;
+}
+
+float sinus(float x) {
+    float result = 0;
+    for (int j = 0; j <= 5; j++) {
+        result += (puissance(-1, j) * puissance(x, (2* j + 1)))/ facto(2* j + 1);
+    }
+    return result;
+}
+
+float tangente(float x) {
+    float cosVal = cosinus(x);
+    if (cosVal == 0) {
+        return 0; // Gérer autrement si nécessaire
+    }
+    return sinus(x) / cosVal;
+}
+
+int main() {
+    float angle;
+    std::cout << "Entrer la valeur de l'angle : ";
+    std::cin >> angle;
+    angle=angle*0.0175;
+    std::cout << "Cosinus : " << cosinus(angle) 
+              << "\nSinus : " << sinus(angle) 
+              << "\nTangente : " << tangente(angle) << std::endl;
+    return 0;
+}
